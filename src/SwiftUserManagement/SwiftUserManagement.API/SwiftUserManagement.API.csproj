@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SwiftUserManagement.Application\SwiftUserManagement.Application.csproj" />
     <ProjectReference Include="..\SwiftUserManagement.Infrastructure\SwiftUserManagement.Infrastructure.csproj" />
   </ItemGroup>
 
