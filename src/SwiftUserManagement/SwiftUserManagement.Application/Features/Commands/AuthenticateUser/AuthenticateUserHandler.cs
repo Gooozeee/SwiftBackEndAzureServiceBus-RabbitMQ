@@ -6,10 +6,10 @@ namespace SwiftUserManagement.Application.Features.Commands.AuthenticateUser
 {
     public class AuthenticateUserHandler : IRequestHandler<AuthenticateUserCommand, TokenVM>
     {
-        private readonly IJWTManagementRepository _jwtManagementRepository;
+        private readonly IJWTManagementFactory _jwtManagementRepository;
         private readonly IMapper _mapper;
 
-        public AuthenticateUserHandler(IJWTManagementRepository jwtManagementRepository, IMapper mapper)
+        public AuthenticateUserHandler(IJWTManagementFactory jwtManagementRepository, IMapper mapper)
         {
             _jwtManagementRepository = jwtManagementRepository ?? throw new ArgumentNullException(nameof(jwtManagementRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));

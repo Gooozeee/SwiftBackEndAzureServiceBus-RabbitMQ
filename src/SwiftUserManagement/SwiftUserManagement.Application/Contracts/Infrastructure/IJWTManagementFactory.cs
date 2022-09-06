@@ -3,7 +3,7 @@
 namespace SwiftUserManagement.Application.Contracts.Infrastructure
 {
     // Interface for managing JWT tokens
-    public interface IJWTManagementRepository
+    public interface IJWTManagementFactory
     {
         Task<Tokens> Authenticate(string email, string password);
     }

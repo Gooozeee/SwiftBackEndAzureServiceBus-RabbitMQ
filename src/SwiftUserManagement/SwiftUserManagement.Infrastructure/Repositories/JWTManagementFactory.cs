@@ -11,27 +11,24 @@ using System.Text;
 namespace SwiftUserManagement.Infrastructure.Repositories
 {
     // Concrete class for authenticating users using JWT
-    public class JWTManagementRepository : IJWTManagementRepository
+    public class JWTManagementFactory : IJWTManagementFactory
     {
         private readonly IConfiguration _configuration;
         private readonly IUserRepository _userRepository;
-        private readonly ILogger<JWTManagementRepository> _logger;
+        private readonly ILogger<JWTManagementFactory> _logger;
 
-        public JWTManagementRepository(IConfiguration configuration, IUserRepository userRepository, ILogger<JWTManagementRepository> logger)
+        public JWTManagementFactory(IConfiguration configuration, IUserRepository userRepository, ILogger<JWTManagementFactory> logger)
         {
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-
-
         // Code to see if a user matches, 
         public async Task<Tokens> Authenticate(string email, string password)
         {
-            var foundUserFromDb = await _userRepository.GetUserByEmail(email);
+           var foundUserFromDb = await _userRepository.GetUserByEmail(email);
 
-           
            if(foundUserFromDb.Id == -1)
             {
                 return new Tokens { Token = "Unauthorized" };

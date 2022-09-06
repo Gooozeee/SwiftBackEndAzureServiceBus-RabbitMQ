@@ -12,9 +12,9 @@ namespace SwiftUserManagement.Application.Features.Commands.AnalyseVideoResults
         private readonly ILogger<AnalyseVideoResultsHandler> _logger;
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
-        private readonly IMassTransitRepository _massTransitRepository;
+        private readonly IMassTransitFactory _massTransitRepository;
 
-        public AnalyseVideoResultsHandler(ILogger<AnalyseVideoResultsHandler> logger, IMapper mapper, IUserRepository userRepository, IMassTransitRepository massTransitRepository)
+        public AnalyseVideoResultsHandler(ILogger<AnalyseVideoResultsHandler> logger, IMapper mapper, IUserRepository userRepository, IMassTransitFactory massTransitRepository)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
@@ -24,8 +24,19 @@ namespace SwiftUserManagement.Application.Features.Commands.AnalyseVideoResults
 
         public async Task<string> Handle(AnalyseVideoResultsCommand request, CancellationToken cancellationToken)
         {
+            var user = _userRepository.GetUser(request.UserName);
+            if (user == null)
+            {
+                return "User not found";
+            }
+
             _logger.LogInformation("Sending video file to python for analysis.");
-            await _massTransitRepository.EmitVideonalysis(request.VideoData[0]);
+            var result = await _massTransitRepository.EmitVideonalysis(request.VideoData[0]);
+
+            if (!result)
+            {
+                return "Can't connect to RabbitMQ/ Received an error";
+            }
             var fileName = request.VideoData[0].FileName;
 
             _logger.LogInformation("Waiting for response from python script");

@@ -2,7 +2,7 @@
 {
     using Microsoft.AspNetCore.Http;
 
-    public interface IMassTransitRepository
+    public interface IMassTransitFactory
     {
         Task<bool> EmitGameAnalysis(int result1, int result2);
 

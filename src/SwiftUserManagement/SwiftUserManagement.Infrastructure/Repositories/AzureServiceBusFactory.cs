@@ -9,13 +9,13 @@ using System.Text.Json;
 
 namespace SwiftUserManagement.Infrastructure.Repositories
 {
-    public class AzureServiceBusRepository : IMassTransitRepository
+    public class AzureServiceBusFactory : IMassTransitFactory
     {
         private readonly IConfiguration _configuration;
-        private readonly ILogger<AzureServiceBusRepository> _logger;
+        private readonly ILogger<AzureServiceBusFactory> _logger;
         private string message;
 
-        public AzureServiceBusRepository(IConfiguration configuration, ILogger<AzureServiceBusRepository> logger)
+        public AzureServiceBusFactory(IConfiguration configuration, ILogger<AzureServiceBusFactory> logger)
         {
             message = "";
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));

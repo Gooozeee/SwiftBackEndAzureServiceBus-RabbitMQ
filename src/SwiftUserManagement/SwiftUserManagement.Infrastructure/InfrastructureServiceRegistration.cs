@@ -14,15 +14,15 @@ namespace SwiftUserManagement.Infrastructure
 
             // Setting up the repositories
             services.AddTransient<IUserRepository, UserRepository>();
-            services.AddScoped<IJWTManagementRepository, JWTManagementRepository>();
+            services.AddScoped<IJWTManagementFactory, JWTManagementFactory>();
 
             if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").ToString() == "Development")
             {
-                services.AddScoped<IMassTransitRepository, RabbitMQRepository>();
+                services.AddScoped<IMassTransitFactory, RabbitMQFactory>();
             }
             else
             {
-                services.AddScoped<IMassTransitRepository, AzureServiceBusRepository>();
+                services.AddScoped<IMassTransitFactory, AzureServiceBusFactory>();
             }
 
             return services;
