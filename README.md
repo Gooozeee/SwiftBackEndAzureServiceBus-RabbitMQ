@@ -23,6 +23,11 @@ To see and manage the PostgreSQL database visit localhost:5050. Use username: ad
 
 To see the controller on Swagger visit localhost:5000/swagger/index.html. To authorise simply create a user, then input those details into the Authorise endpoint. Finally click the authorise button on the top right and input the token which you received from the authorise endpoint.
 
+# Pre-requisites for running tests
+
+1. Ensure docker desktop is running
+2. Ensure you have built the application using docker-compose before so that the game/video analysis python images already exist as these will be ran for integration testing purposes
+
 # Running back end in docker
 
 Instructions for running the back end API (This will containerise all the code needed for the backend to work)
