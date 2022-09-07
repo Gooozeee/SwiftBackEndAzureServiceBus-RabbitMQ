@@ -41,24 +41,27 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
 
-  swiftusermanagement.api:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "DatabaseSettings__ConnectionString=Server=userdb;Port=5432;Database=UsersDb;User Id=admin;Password=admin1234"
-    ports:
-      - "5000:80"
-
   GameAnalysisRabbitMQClient:
+    container_name: GameAnalysisRabbitMQClient
     environment:
       - PYTHONUNBUFFERED=1
     restart: always
 
   VideoAnalysisRabbitMQClient:
+    container_name: VideoAnalysisRabbitMQClient
     environment:
       - PYTHONUNBUFFERED=1
     restart: always
     volumes:
       - /VideoAnalysis
+  
+  swiftusermanagement.api:
+    container_name: swiftusermanagement.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings__ConnectionString=Server=userdb;Port=5432;Database=UsersDb;User Id=admin;Password=admin1234"
+    ports:
+      - "5000:80"
 
   
   

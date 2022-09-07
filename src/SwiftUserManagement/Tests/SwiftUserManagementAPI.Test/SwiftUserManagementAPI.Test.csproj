@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\SwiftUserManagement\SwiftUserManagement.API\SwiftUserManagement.API.csproj" />
+    <ProjectReference Include="..\..\SwiftUserManagement.Application\SwiftUserManagement.Application.csproj" />
   </ItemGroup>
 
 </Project>

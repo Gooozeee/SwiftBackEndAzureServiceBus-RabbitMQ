@@ -4,7 +4,7 @@
 
     public interface IMassTransitFactory
     {
-        Task<bool> EmitGameAnalysis(int result1, int result2);
+        Task<string> EmitGameAnalysis(int result1, int result2);
 
         Task<string> ReceiveGameAnalysis();
 

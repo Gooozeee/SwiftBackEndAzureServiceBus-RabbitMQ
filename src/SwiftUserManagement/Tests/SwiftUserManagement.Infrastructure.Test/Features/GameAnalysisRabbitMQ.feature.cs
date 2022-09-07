@@ -160,6 +160,45 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
+        [Xunit.SkippableFactAttribute(DisplayName="The hostname is wrong so the application can\'t connect to RabbitMQ")]
+        [Xunit.TraitAttribute("FeatureTitle", "GameAnalysisRabbitMQ")]
+        [Xunit.TraitAttribute("Description", "The hostname is wrong so the application can\'t connect to RabbitMQ")]
+        [Xunit.TraitAttribute("Category", "tag3")]
+        public void TheHostnameIsWrongSoTheApplicationCantConnectToRabbitMQ()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "tag3"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The hostname is wrong so the application can\'t connect to RabbitMQ", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 25
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                            "result1",
+                            "result2"});
+                table6.AddRow(new string[] {
+                            "25",
+                            "50"});
+#line 26
+ testRunner.Given("The results to be sent through are valid", ((string)(null)), table6, "Given ");
+#line hidden
+#line 29
+ testRunner.When("The Emit Game analysis function is called with the wrong host", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 30
+ testRunner.Then("the result from this method call should return a connection error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable

@@ -5,7 +5,7 @@ using TechTalk.SpecFlow.CommonModels;
 using FluentResults;
 using MediatR;
 using Moq;
-using SwiftUserManagement.API.Controllers;
+//using SwiftUserManagement.API.Controllers;
 using SwiftUserManagement.Application.Features.Commands.CreateUser;
 
 namespace SwiftUserManagementAPI.Test.StepDefinitions

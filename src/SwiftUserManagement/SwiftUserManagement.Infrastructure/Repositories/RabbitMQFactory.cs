@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -13,24 +14,26 @@ namespace SwiftUserManagement.Infrastructure.Repositories
     public class RabbitMQFactory : IMassTransitFactory
     {
         private readonly ILogger<RabbitMQFactory> _Logger;
+        private readonly IConfiguration _configuration;
 
-        public RabbitMQFactory(ILogger<RabbitMQFactory> ILogger)
+        public RabbitMQFactory(ILogger<RabbitMQFactory> logger, IConfiguration configuration)
         {
-            _Logger = ILogger ?? throw new ArgumentNullException(nameof(ILogger));
+            _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
         // Sending out the game score analysis task to the queue
-        public Task<bool> EmitGameAnalysis(int result1, int result2)
+        public Task<string> EmitGameAnalysis(int result1, int result2)
         {
             if (result1 == 0)
             {
-                return Task.FromResult(false);
+                return Task.FromResult("Invalid result");
             }
 
             // Connecting to the RabbitMQ queue
             try
             {
-                var factory = new ConnectionFactory() { HostName = "rabbitmq" };
+                var factory = new ConnectionFactory() { HostName = _configuration["RabbitMQSettings:Host"] };
                 using (var connection = factory.CreateConnection())
                 using (var channel = connection.CreateModel())
                 {
@@ -50,13 +53,13 @@ namespace SwiftUserManagement.Infrastructure.Repositories
                                          body: body);
                     _Logger.LogInformation("Sent game results for analysis");
 
-                    return Task.FromResult(true);
+                    return Task.FromResult("Sent game results for analysis");
                 }
             }
             catch (Exception e)
             {
                 _Logger.LogInformation($"Can't connect to RabbitMQ: {e.Message}");
-                return Task.FromResult(false);
+                return Task.FromResult("Connection error");
             }
             
         }
@@ -71,7 +74,7 @@ namespace SwiftUserManagement.Infrastructure.Repositories
             // Connecting to the RabbitMQ queue
             try
             {
-                var factory = new ConnectionFactory() { HostName = "rabbitmq" };
+                var factory = new ConnectionFactory() { HostName = _configuration["RabbitMQSettings:Host"] };
                 using (var connection = factory.CreateConnection())
                 using (var channel = connection.CreateModel())
                 {
@@ -109,7 +112,7 @@ namespace SwiftUserManagement.Infrastructure.Repositories
         {
             string receivedMessage = "";
 
-            var factory = new ConnectionFactory() { HostName = "rabbitmq" };
+            var factory = new ConnectionFactory() { HostName = _configuration["RabbitMQSettings:Host"] };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
@@ -160,7 +163,7 @@ namespace SwiftUserManagement.Infrastructure.Repositories
         {
             string receivedMessage = "";
 
-            var factory = new ConnectionFactory() { HostName = "rabbitmq" };
+            var factory = new ConnectionFactory() { HostName = _configuration["RabbitMQSettings:Host"] };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {

@@ -20,3 +20,11 @@ Scenario: Emitting invalid game analysis data to the RabbitMQ container instance
 	| 0       | 50      |
 	When The Emit Game analysis function is called
 	Then The result from this method call should be false
+
+@tag3
+Scenario: The hostname is wrong so the application can't connect to RabbitMQ
+	Given The results to be sent through are valid
+	| result1 | result2 |
+	| 25      | 50      |
+	When The Emit Game analysis function is called with the wrong host
+	Then the result from this method call should return a connection error

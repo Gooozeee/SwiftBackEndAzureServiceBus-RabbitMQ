@@ -24,7 +24,7 @@ namespace SwiftUserManagement.Infrastructure.Repositories
 
 
         // Emitting the game analysis
-        public async Task<bool> EmitGameAnalysis(int result1, int result2)
+        public async Task<string> EmitGameAnalysis(int result1, int result2)
         {
             string connectionString = _configuration["AzureServiceBus:ConnectionString"];
             string topicName = _configuration["AzureServiceBus:GameToPythonTopic"];
@@ -52,7 +52,7 @@ namespace SwiftUserManagement.Infrastructure.Repositories
             }
 
             _logger.LogInformation("Sent game results for analysis");
-            return true;
+            return "Sent game results for analysis";
 
         }
 

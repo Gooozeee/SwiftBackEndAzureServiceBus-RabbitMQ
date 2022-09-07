@@ -12,12 +12,6 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
-
-  swiftusermanagement.api:
-    image: ${DOCKER_REGISTRY-}swiftusermanagementapi
-    build:
-      context: .
-      dockerfile: SwiftUserManagement/SwiftUserManagement.API/Dockerfile
  
   GameAnalysisRabbitMQClient:
     image: ${DOCKER_REGISTRY-}python-gameanalysis
@@ -31,8 +25,15 @@ services:
       context: .
       dockerfile: VideoAnalysis/Dockerfile
 
+  swiftusermanagement.api:
+    image: ${DOCKER_REGISTRY-}swiftusermanagementapi
+    build:
+      context: .
+      dockerfile: SwiftUserManagement/SwiftUserManagement.API/Dockerfile
+
 volumes:
-  mongo_data:
   portainer_data:
   postgres_data:
   #pgadmin_data:
+
+

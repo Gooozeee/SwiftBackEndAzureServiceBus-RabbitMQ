@@ -24,7 +24,7 @@ namespace SwiftUserManagement.Application.Features.Commands.AnalyseGameResults
 
             var result = await _massTransitRepository.EmitGameAnalysis(request.result1, request.result2);
 
-            if (!result)
+            if (result == "Connection error")
             {
                 return "Can't connect to RabbitMQ/ Received an error";
             }
